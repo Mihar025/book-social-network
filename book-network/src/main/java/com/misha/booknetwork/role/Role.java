@@ -1,5 +1,6 @@
 package com.misha.booknetwork.role;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.misha.booknetwork.user.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,6 +27,7 @@ public class Role {
     private String name;
 
     @ManyToMany(mappedBy = "roles")
+    @JsonIgnore
     private List<User> users;
 
     @CreatedDate
