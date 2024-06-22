@@ -1,5 +1,6 @@
 package com.misha.booknetwork.user;
 
+import com.misha.booknetwork.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -11,6 +12,8 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -38,6 +41,10 @@ public class User implements UserDetails, Principal {
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Role> roles;
+
+
 
 
 
