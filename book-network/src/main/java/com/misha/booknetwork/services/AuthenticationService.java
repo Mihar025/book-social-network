@@ -76,6 +76,6 @@ public class AuthenticationService {
             int random = secureRandom.nextInt(characters.length()); //0 .. 9
             codeBuilder.append(characters.charAt(random));
         }
-        return null;
+        return codeBuilder.toString();
     }
 }
