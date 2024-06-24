@@ -1,7 +1,7 @@
 package com.misha.booknetwork.services;
 
 import com.misha.booknetwork.dto.RegistrationRequest;
-import com.misha.booknetwork.ema.EmailService;
+
 import com.misha.booknetwork.emails.EmailService;
 import com.misha.booknetwork.emails.EmailTemplateName;
 import com.misha.booknetwork.repository.RoleRepository;
