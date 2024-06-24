@@ -1,6 +1,8 @@
 package com.misha.booknetwork.services;
 
 import com.misha.booknetwork.dto.RegistrationRequest;
+import com.misha.booknetwork.ema.EmailService;
+import com.misha.booknetwork.emails.EmailService;
 import com.misha.booknetwork.repository.RoleRepository;
 import com.misha.booknetwork.repository.TokenReposiotry;
 import com.misha.booknetwork.repository.UserRepository;
@@ -21,6 +23,7 @@ public class AuthenticationService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private TokenReposiotry tokenReposiotry;
+    private final EmailService emailService;
 
     // 1 sign role to user
     //2 Create User object
