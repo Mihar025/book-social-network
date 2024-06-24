@@ -17,21 +17,15 @@ public class BeansConfig {
     private final UserDetailsService userDetailsService;
 
     @Bean
-   public AuthenticationProvider
-            authenticationProvider(){
-        DaoAuthenticationProvider authenticationProvider =
-                new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(
-                userDetailsService
-        );
-        authenticationProvider.setPasswordEncoder(passwordEncoder());
-        return authenticationProvider;
-        
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
 }

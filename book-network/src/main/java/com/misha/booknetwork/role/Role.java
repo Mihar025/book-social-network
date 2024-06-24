@@ -14,25 +14,26 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "_user")
+@Table(name = "role")
 @EntityListeners(AuditingEntityListener.class)
 public class Role {
+
     @Id
     @GeneratedValue
     private Integer id;
     @Column(unique = true)
     private String name;
-
     @ManyToMany(mappedBy = "roles")
     @JsonIgnore
-    private List<User> users;
+    private List<User> user;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;
+
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;
