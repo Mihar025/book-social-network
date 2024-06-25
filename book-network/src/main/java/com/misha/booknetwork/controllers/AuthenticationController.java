@@ -1,5 +1,6 @@
 package com.misha.booknetwork.controllers;
 
+import com.misha.booknetwork.dto.AuthenticationRequest;
 import com.misha.booknetwork.dto.RegistrationRequest;
 import com.misha.booknetwork.services.AuthenticationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,6 +26,13 @@ public class AuthenticationController {
     ) throws MessagingException {
         service.register(request);
         return ResponseEntity.accepted().build();
+    }
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<AuthenticationResponse> authenticate(
+            @RequestBody @Valid AuthenticationRequest authenticationRequest
+    ){
+        return ResponseEntity.ok(service.authenticate(authenticationRequest));
     }
 
 
