@@ -7,16 +7,22 @@ import com.misha.booknetwork.emails.EmailTemplateName;
 import com.misha.booknetwork.repository.RoleRepository;
 import com.misha.booknetwork.repository.TokenReposiotry;
 import com.misha.booknetwork.repository.UserRepository;
+import com.misha.booknetwork.role.Role;
 import com.misha.booknetwork.user.Token;
 import com.misha.booknetwork.user.User;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,9 +39,10 @@ public class AuthenticationService {
 
     public void register(RegistrationRequest request) throws MessagingException {
         var userRole = roleRepository.findByName("USER")
+                // todo - better exception handling
                 .orElseThrow(() -> new IllegalStateException("ROLE USER was not initiated"));
         var user = User.builder()
-                .firstName(request.getFirstName())
+                .firstname(request.getFirstname())
                 .lastname(request.getLastname())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
@@ -63,13 +70,14 @@ public class AuthenticationService {
 
     private void sendValidationEmail(User user) throws MessagingException {
         var newToken = generateAndSaveActivationToken(user);
+
         emailService.sendEmail(
                 user.getEmail(),
-                user.fullName(),
+                user.getFullName(),
                 EmailTemplateName.ACTIVATE_ACCOUNT,
                 activationUrl,
                 newToken,
-                "Account Activation"
+                "Account activation"
         );
     }
 

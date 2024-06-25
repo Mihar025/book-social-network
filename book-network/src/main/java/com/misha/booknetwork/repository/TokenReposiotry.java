@@ -6,8 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
-public interface TokenReposiotry  extends JpaRepository<Token, Integer> {
-    Optional<Token> findByToken(String token);
+public interface TokenReposiotry extends JpaRepository<Token, Integer> {
 
+    Optional<Token> findByToken(String token);
 }

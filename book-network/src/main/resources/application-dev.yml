@@ -38,3 +38,8 @@ application:
       activation-url: http://localhost:4200/activate-account
 server:
   port: 8088
+
+logging:
+  level:
+    com.misha.booknetwork.security: DEBUG
+    org.springframework.security: DEBUG

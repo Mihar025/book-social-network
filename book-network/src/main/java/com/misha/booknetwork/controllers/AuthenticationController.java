@@ -16,12 +16,14 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Authentication")
 public class AuthenticationController {
 
-    private final AuthenticationService authenticationService;
+    private final AuthenticationService service;
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<?> register (@RequestBody @Valid RegistrationRequest request) throws MessagingException {
-        authenticationService.register(request);
+    public ResponseEntity<?> register(
+            @RequestBody @Valid RegistrationRequest request
+    ) throws MessagingException {
+        service.register(request);
         return ResponseEntity.accepted().build();
     }
 

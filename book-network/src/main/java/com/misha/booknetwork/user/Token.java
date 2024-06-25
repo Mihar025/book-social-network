@@ -17,8 +17,8 @@ public class Token {
     @GeneratedValue
     private Integer id;
 
+    @Column(unique = true)
     private String token;
-
     private LocalDateTime createdAt;
     private LocalDateTime expiresAt;
     private LocalDateTime validatedAt;
@@ -26,6 +26,4 @@ public class Token {
     @ManyToOne
     @JoinColumn(name = "userId", nullable = false)
     private User user;
-
-
 }

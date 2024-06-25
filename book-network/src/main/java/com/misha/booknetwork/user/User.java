@@ -3,6 +3,7 @@ package com.misha.booknetwork.user;
 import com.misha.booknetwork.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -12,24 +13,28 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static jakarta.persistence.FetchType.EAGER;
+
+
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor
+@SuperBuilder
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "_user")
 @EntityListeners(AuditingEntityListener.class)
 public class User implements UserDetails, Principal {
+
     @Id
     @GeneratedValue
     private Integer id;
-
-    private String firstName;
+    private String firstname;
     private String lastname;
     private LocalDate dateOfBirth;
     @Column(unique = true)
@@ -37,29 +42,16 @@ public class User implements UserDetails, Principal {
     private String password;
     private boolean accountLocked;
     private boolean enabled;
+    @ManyToMany(fetch = EAGER)
+    private List<Role> roles;
+
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;
+
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Role> roles;
-
-
-
-
-
-
-
-
-
-    @Override
-    public String getName() {
-        return email;
-    }
-
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -99,17 +91,16 @@ public class User implements UserDetails, Principal {
         return enabled;
     }
 
-
-    public String fullName(){
-        return firstName + " " + lastname;
+    public String fullName() {
+        return getFirstname() + " " + getLastname();
     }
 
+    @Override
+    public String getName() {
+        return email;
+    }
 
-
-
-
-
-
-
-
+    public String getFullName() {
+        return firstname + " " + lastname;
+    }
 }
