@@ -1,6 +1,7 @@
 package com.misha.booknetwork.controllers;
 
 import com.misha.booknetwork.dto.AuthenticationRequest;
+import com.misha.booknetwork.dto.AuthenticationResponse;
 import com.misha.booknetwork.dto.RegistrationRequest;
 import com.misha.booknetwork.services.AuthenticationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
