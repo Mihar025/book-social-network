@@ -1,5 +1,7 @@
 package com.misha.booknetwork.services;
 
+import com.misha.booknetwork.dto.AuthenticationRequest;
+import com.misha.booknetwork.dto.AuthenticationResponse;
 import com.misha.booknetwork.dto.RegistrationRequest;
 
 import com.misha.booknetwork.emails.EmailService;
@@ -93,5 +95,12 @@ public class AuthenticationService {
         }
 
         return codeBuilder.toString();
+    }
+
+    public AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest) {
+
+
+
+
     }
 }
