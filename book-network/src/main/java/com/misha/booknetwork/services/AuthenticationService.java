@@ -121,7 +121,7 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .token(jwtToken).build();
     }
-
+   // @Transactional
     public void activateAccount(String token) throws MessagingException {
         Token savedToken = tokenReposiotry.findByToken(token)
                 .orElseThrow(() -> new RuntimeException("Invalid token"));
