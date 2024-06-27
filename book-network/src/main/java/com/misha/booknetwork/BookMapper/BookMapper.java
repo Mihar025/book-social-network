@@ -30,6 +30,7 @@ public class BookMapper {
                 .synopsis(book.getSynopsis())
                 .owner(book.getOwner().fullName())
                 //.cover(book.getBookCover().getBytes(StandardCharsets.UTF_8))
+
                 .rate(book.getRate())
                 .archived(book.isArchived())
                 .shareable(book.isShareable())
