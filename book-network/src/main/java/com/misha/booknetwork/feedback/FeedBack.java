@@ -1,35 +1,29 @@
 package com.misha.booknetwork.feedback;
 
+import com.misha.booknetwork.common.BaseEntity;
 import jakarta.persistence.*;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@Setter
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class FeedBack {
-   @Id
-   @GeneratedValue
-    private Integer id;
+public class FeedBack  extends BaseEntity {
+
 
     private Double note; // 1- 5 stars
 
     private String comment; // feed back about book or whatever
 
-    @CreatedDate
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdDate;
-    @LastModifiedDate
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime lastModifiedDate;
-    @CreatedBy
-    @Column(nullable = false, updatable = false)
-    private Integer createdBy;
-    @LastModifiedDate
-    @Column(insertable = false)
-    private Integer lastModifiedBy;
 
 }
