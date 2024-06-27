@@ -4,6 +4,7 @@ import com.misha.booknetwork.BookMapper.BookMapper;
 import com.misha.booknetwork.BookRepository.BookRepository;
 import com.misha.booknetwork.BookRequests.BookRequest;
 import com.misha.booknetwork.book.Book;
+import com.misha.booknetwork.dto.BookResponse;
 import com.misha.booknetwork.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -21,5 +22,9 @@ private final BookMapper bookMapper;
         Book book = bookMapper.toBook(request);
         book.setOwner(user);
         return bookRepository.save(book).getId();
+    }
+
+    public BookResponse findById(Integer bookId) {
+        return null;
     }
 }

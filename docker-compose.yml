@@ -7,8 +7,8 @@ services:
       POSTGRES_PASSWORD: misha
       PGDATA: /var/lib/postgresql/data
       POSTGRES_DB: book_social_network
-    volumes:
-      - postgres:/data/postgres
+        - postgres:/data/
+    volumes: postgres
     ports:
       - 5433:5432
     networks:
