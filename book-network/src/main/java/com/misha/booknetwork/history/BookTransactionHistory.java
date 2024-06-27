@@ -17,4 +17,15 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookTransactionHistory extends BaseEntity {
+
+    // user relationship
+    //book relationship
+
+
+
+    private boolean returned;
+    private boolean returnApproved;
+
+
+
 }
