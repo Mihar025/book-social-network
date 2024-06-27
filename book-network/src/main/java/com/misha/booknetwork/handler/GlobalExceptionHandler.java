@@ -80,12 +80,10 @@ public class GlobalExceptionHandler {
                     errors.add(errorMessage);
                 });
         return ResponseEntity
-                .status(HttpStatus.UNAUTHORIZED)
+                .status(HttpStatus.BAD_REQUEST)
                 .body(
                         ExceptionResponse.builder()
-                                .businessErrorCode(BAD_CREDENTIALS.getCode())
-                                .businessExceptionDescription (BAD_CREDENTIALS.getDescription())
-                                .error(BAD_CREDENTIALS.getDescription())
+                                .validatingErrors(errors)
                                 .build()
                 );
 
