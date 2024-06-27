@@ -1,7 +1,9 @@
 package com.misha.booknetwork.BookRepository;
 
+import com.misha.booknetwork.book.Book;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class BookRepository {
+public interface BookRepository extends JpaRepository<Book,Integer> {
 }
