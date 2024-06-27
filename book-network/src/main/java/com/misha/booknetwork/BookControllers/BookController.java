@@ -28,10 +28,10 @@ public class BookController {
 
 
         @GetMapping("{book-id}")
-    public ResponseEntity<BookResponse> findNookById(
+    public ResponseEntity<BookResponse>findNookById(
             @PathVariable("book-id") Integer bookId
         ){
-            return ResponseEntity.ok(bookService.findById(bookId)).getBody();
+            return ResponseEntity.ok(bookService.findById(bookId));
         }
 
 }
