@@ -2,6 +2,7 @@ package com.misha.booknetwork.book;
 
 import com.misha.booknetwork.common.BaseEntity;
 import com.misha.booknetwork.feedback.FeedBack;
+import com.misha.booknetwork.history.BookTransactionHistory;
 import com.misha.booknetwork.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -39,7 +40,8 @@ public class Book extends BaseEntity {
     @OneToMany(mappedBy = "book")
     private List<FeedBack> feedBacks;
 
-
+    @OneToMany(mappedBy = "book")
+    private List<BookTransactionHistory> histories;
 
 
 

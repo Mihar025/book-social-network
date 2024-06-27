@@ -1,6 +1,7 @@
 package com.misha.booknetwork.user;
 
 import com.misha.booknetwork.book.Book;
+import com.misha.booknetwork.history.BookTransactionHistory;
 import com.misha.booknetwork.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -55,6 +56,10 @@ public class User implements UserDetails, Principal {
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;
+
+
+    @OneToMany(mappedBy = "user")
+    private List<BookTransactionHistory> histories;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
