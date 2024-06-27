@@ -89,4 +89,19 @@ public class GlobalExceptionHandler {
 
     }
 
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ExceptionResponse> handleException (Exception exception){
+
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(
+                        ExceptionResponse.builder()
+                                .businessExceptionDescription("Internal error, contact with provider ")
+                                .error(exception.getMessage())
+                                .build()
+                );
+
+    }
+
 }
