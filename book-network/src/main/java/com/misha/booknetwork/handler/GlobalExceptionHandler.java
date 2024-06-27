@@ -2,10 +2,13 @@ package com.misha.booknetwork.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import static com.misha.booknetwork.handler.BusinessErrorCodes.BAD_CREDENTIALS;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -38,15 +41,15 @@ public class GlobalExceptionHandler {
 
     }
 
-    @ExceptionHandler(DisabledException.class)
-    public ResponseEntity<ExceptionResponse> handleException (DisabledException exception){
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ExceptionResponse> handleException (BadCredentialsException exception){
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
                 .body(
                         ExceptionResponse.builder()
-                                .businessErrorCode(BusinessErrorCodes.ACCOUNT_DISABLED.getCode())
-                                .businessExceptionDescription(BusinessErrorCodes.ACCOUNT_DISABLED.getDescription())
-                                .error(exception.getMessage())
+                                .businessErrorCode(BAD_CREDENTIALS.getCode())
+                                .businessExceptionDescription (BAD_CREDENTIALS.getDescription())
+                                .error(BAD_CREDENTIALS.getDescription())
                                 .build()
                 );
 
