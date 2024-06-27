@@ -1,12 +1,17 @@
 package com.misha.booknetwork.book;
 
 import com.misha.booknetwork.common.BaseEntity;
+import com.misha.booknetwork.feedback.FeedBack;
+import com.misha.booknetwork.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+
+import java.util.List;
+
 @Getter
 @Setter
 @SuperBuilder
@@ -26,6 +31,14 @@ public class Book extends BaseEntity {
     private boolean archived;
 
     private boolean shareable;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
+
+    @OneToMany(mappedBy = "book")
+    private List<FeedBack> feedBacks;
+
 
 
 

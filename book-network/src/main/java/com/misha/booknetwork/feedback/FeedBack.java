@@ -1,5 +1,6 @@
 package com.misha.booknetwork.feedback;
 
+import com.misha.booknetwork.book.Book;
 import com.misha.booknetwork.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,5 +25,8 @@ public class FeedBack  extends BaseEntity {
 
     private String comment; // feed back about book or whatever
 
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+        private Book book;
 
 }

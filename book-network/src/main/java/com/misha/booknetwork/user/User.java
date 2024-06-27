@@ -1,5 +1,6 @@
 package com.misha.booknetwork.user;
 
+import com.misha.booknetwork.book.Book;
 import com.misha.booknetwork.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -44,6 +45,8 @@ public class User implements UserDetails, Principal {
     private boolean enabled;
     @ManyToMany(fetch = EAGER)
     private List<Role> roles;
+    @OneToMany(mappedBy = "owner")
+    private List<Book> books;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
