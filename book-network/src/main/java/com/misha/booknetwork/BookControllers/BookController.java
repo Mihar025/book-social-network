@@ -3,6 +3,7 @@ package com.misha.booknetwork.BookControllers;
 import com.misha.booknetwork.BookRequests.BookRequest;
 import com.misha.booknetwork.BookService.BookService;
 import com.misha.booknetwork.dto.BookResponse;
+import com.misha.booknetwork.dto.PageResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,11 @@ public class BookController {
             @PathVariable("book-id") Integer bookId
         ){
             return ResponseEntity.ok(bookService.findById(bookId));
+        }
+
+        @GetMapping
+        public ResponseEntity<PageResponse> findAllBooks(){
+            return ResponseEntity.ok(bookService.findAll());
         }
 
 }
