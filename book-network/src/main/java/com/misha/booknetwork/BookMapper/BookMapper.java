@@ -53,9 +53,4 @@ public class BookMapper {
                 .build();
     }
 
-    public ReturnedBookResponse toReturnedBookResponse(BookTransactionHistory bookTransactionHistory) {
-            return ReturnedBookRespone;
-
-
-    }
 }
