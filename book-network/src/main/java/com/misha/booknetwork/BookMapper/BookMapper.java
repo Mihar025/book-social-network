@@ -3,6 +3,8 @@ package com.misha.booknetwork.BookMapper;
 import com.misha.booknetwork.BookRequests.BookRequest;
 import com.misha.booknetwork.book.Book;
 import com.misha.booknetwork.dto.BookResponse;
+import com.misha.booknetwork.dto.BorrowedBookResponse;
+import com.misha.booknetwork.history.BookTransactionHistory;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
@@ -36,5 +38,17 @@ public class BookMapper {
                 .shareable(book.isShareable())
                 .build();
 
+    }
+
+    public BorrowedBookResponse toBorrowedBookResponse(BookTransactionHistory bookTransactionHistory) {
+        return BorrowedBookResponse.builder()
+                .id(bookTransactionHistory.getBook().getId())
+                .title(bookTransactionHistory.getBook().getTitle())
+                .authorName(bookTransactionHistory.getBook().getAuthorName())
+                .isbn(bookTransactionHistory.getBook().getIsbn())
+                .rate(bookTransactionHistory.getBook().getRate())
+                .returned(bookTransactionHistory.isReturned())
+                .returnApprove(bookTransactionHistory.isReturnApproved())
+                .build();
     }
 }
