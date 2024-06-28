@@ -7,6 +7,7 @@ import com.misha.booknetwork.book.Book;
 import com.misha.booknetwork.dto.BookResponse;
 import com.misha.booknetwork.dto.BookSpecification;
 import com.misha.booknetwork.dto.PageResponse;
+import com.misha.booknetwork.history.BookTransactionHistory;
 import com.misha.booknetwork.user.User;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -77,5 +78,14 @@ private final BookMapper bookMapper;
                 books.isLast()
 
         );
+    }
+
+    public PageResponse<BookResponse> findAllBorrowedBooks(int page, int size, Authentication connectedUser) {
+        User user = ((User) connectedUser.getPrincipal());
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createDate").descending());
+        Page<BookTransactionHistory> allBorrowedBooks
+
+
+
     }
 }

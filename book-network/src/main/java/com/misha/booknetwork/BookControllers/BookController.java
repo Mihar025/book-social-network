@@ -59,7 +59,7 @@ public class BookController {
             @RequestParam(name = "size", defaultValue = "0", required = false) int size,
             Authentication connectedUser
     ){
-        return ResponseEntity.ok(bookService.findAllBooksByOwner(page, size, connectedUser));
+        return ResponseEntity.ok(bookService.findAllBorrowedBooks(page, size, connectedUser));
     }
 
 
