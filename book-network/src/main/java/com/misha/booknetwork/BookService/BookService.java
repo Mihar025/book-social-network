@@ -5,6 +5,7 @@ import com.misha.booknetwork.BookRepository.BookRepository;
 import com.misha.booknetwork.BookRequests.BookRequest;
 import com.misha.booknetwork.book.Book;
 import com.misha.booknetwork.dto.BookResponse;
+import com.misha.booknetwork.dto.BookSpecification;
 import com.misha.booknetwork.dto.PageResponse;
 import com.misha.booknetwork.user.User;
 import jakarta.persistence.EntityNotFoundException;
@@ -57,5 +58,15 @@ private final BookMapper bookMapper;
                 books.isLast()
 
         );
+    }
+
+
+    public PageResponse<BookResponse> findAllBooksByOwner(int page, int size, Authentication connectedUser) {
+        User user = ((User) connectedUser.getPrincipal());
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createDate").descending());
+        Page<Book> books = bookRepository.findAll(BookSpecification.withOwnerId(user.getId()), pageable);
+
+
+        return null;
     }
 }
