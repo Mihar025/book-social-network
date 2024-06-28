@@ -5,7 +5,6 @@ import com.misha.booknetwork.BookService.BookService;
 import com.misha.booknetwork.dto.BookResponse;
 import com.misha.booknetwork.dto.BorrowedBookResponse;
 import com.misha.booknetwork.dto.PageResponse;
-import com.misha.booknetwork.dto.ReturnedBookResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -71,6 +70,13 @@ public class BookController {
             Authentication connectedUser
     ){
         return ResponseEntity.ok(bookService.findAllReturnedBooks(page, size, connectedUser));
+    }
+
+    @PatchMapping("/shareable/{book-id}")
+    public ResponseEntity<Integer> updateShareableStatus( @PathVariable("book-id") Integer bookId,
+                                                          Authentication connectedUser){
+
+            return ResponseEntity.ok(bookService.updateShareAbleStatus(bookId, connectedUser));
     }
 
 

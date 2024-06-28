@@ -4,11 +4,8 @@ import com.misha.booknetwork.BookRequests.BookRequest;
 import com.misha.booknetwork.book.Book;
 import com.misha.booknetwork.dto.BookResponse;
 import com.misha.booknetwork.dto.BorrowedBookResponse;
-import com.misha.booknetwork.dto.ReturnedBookResponse;
 import com.misha.booknetwork.history.BookTransactionHistory;
 import org.springframework.stereotype.Service;
-
-import java.nio.charset.StandardCharsets;
 
 @Service
 public class BookMapper {
