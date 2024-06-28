@@ -6,8 +6,10 @@ import com.misha.booknetwork.BookRequests.BookRequest;
 import com.misha.booknetwork.book.Book;
 import com.misha.booknetwork.dto.BookResponse;
 import com.misha.booknetwork.dto.BookSpecification;
+import com.misha.booknetwork.dto.BorrowedResponse;
 import com.misha.booknetwork.dto.PageResponse;
 import com.misha.booknetwork.history.BookTransactionHistory;
+import com.misha.booknetwork.history.BookTransactionHistoryRepository;
 import com.misha.booknetwork.user.User;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,7 @@ import java.util.stream.Collectors;
 public class BookService {
 
 private final BookRepository bookRepository;
+private final BookTransactionHistoryRepository bookTransactionHistoryRepository;
 private final BookMapper bookMapper;
 
     public Integer save(BookRequest request, Authentication connectedUser) {
@@ -83,9 +86,11 @@ private final BookMapper bookMapper;
     public PageResponse<BookResponse> findAllBorrowedBooks(int page, int size, Authentication connectedUser) {
         User user = ((User) connectedUser.getPrincipal());
         Pageable pageable = PageRequest.of(page, size, Sort.by("createDate").descending());
-        Page<BookTransactionHistory> allBorrowedBooks
+        Page<BookTransactionHistory> allBorrowedBooks = bookTransactionHistoryRepository.findAllBorrowedBooks(pageable, user.getId());
+        List<BorrowedResponse> bookResponse = allBorrowedBooks.stream()
+                .map(bookMapper::toBorrowedBookResponse)
+                .toList();
 
-
-
+        return null;
     }
 }
