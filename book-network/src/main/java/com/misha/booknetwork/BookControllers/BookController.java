@@ -3,7 +3,9 @@ package com.misha.booknetwork.BookControllers;
 import com.misha.booknetwork.BookRequests.BookRequest;
 import com.misha.booknetwork.BookService.BookService;
 import com.misha.booknetwork.dto.BookResponse;
+import com.misha.booknetwork.dto.BorrowedBookResponse;
 import com.misha.booknetwork.dto.PageResponse;
+import com.misha.booknetwork.dto.ReturnedBookResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -54,12 +56,21 @@ public class BookController {
         }
 
     @GetMapping("/borrowed")
-    public ResponseEntity<PageResponse<BookResponse>> findAllBorrowedBooks(
+    public ResponseEntity<PageResponse<BorrowedBookResponse>> findAllBorrowedBooks(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
             @RequestParam(name = "size", defaultValue = "0", required = false) int size,
             Authentication connectedUser
     ){
         return ResponseEntity.ok(bookService.findAllBorrowedBooks(page, size, connectedUser));
+    }
+
+    @GetMapping("/returned")
+    public ResponseEntity<PageResponse<ReturnedBookResponse>> findAllReturnedBooks(
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "0", required = false) int size,
+            Authentication connectedUser
+    ){
+        return ResponseEntity.ok(bookService.findAllReturnedBooks(page, size, connectedUser));
     }
 
 
