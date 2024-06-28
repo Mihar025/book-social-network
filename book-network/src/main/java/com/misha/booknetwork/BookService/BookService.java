@@ -118,6 +118,11 @@ private final BookMapper bookMapper;
     public Integer updateShareAbleStatus(Integer bookId, Authentication connectedUser) {
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new EntityNotFoundException("No book found with the ID::" + bookId));
+        User user = ((User) connectedUser.getPrincipal());
+
+
+
+
         return null;
     }
 }
