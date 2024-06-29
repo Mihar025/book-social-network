@@ -179,7 +179,7 @@ private final BookMapper bookMapper;
         if(!Objects.equals(book.getOwner().getId(), user.getId())){
             throw new OperationNotPermittedException("You cannot borrow or return your own book");
         }
-
+        BookTransactionHistory bookTransactionHistory = bookTransactionHistoryRepository.findByBookIdAndUserId(bookId, user.getId());
         return null;
     }
 }
