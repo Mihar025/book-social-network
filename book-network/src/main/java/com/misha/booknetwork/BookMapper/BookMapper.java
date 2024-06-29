@@ -4,7 +4,9 @@ import com.misha.booknetwork.BookRequests.BookRequest;
 import com.misha.booknetwork.book.Book;
 import com.misha.booknetwork.dto.BookResponse;
 import com.misha.booknetwork.dto.BorrowedBookResponse;
+import com.misha.booknetwork.files.FileUtils;
 import com.misha.booknetwork.history.BookTransactionHistory;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,7 +31,7 @@ public class BookMapper {
                 .isbn(book.getIsbn())
                 .synopsis(book.getSynopsis())
                 .owner(book.getOwner().fullName())
-                //.cover(book.getBookCover().getBytes(StandardCharsets.UTF_8))
+                .cover(FileUtils.readFileFromLocation(book.getBookCover()))
 
                 .rate(book.getRate())
                 .archived(book.isArchived())
