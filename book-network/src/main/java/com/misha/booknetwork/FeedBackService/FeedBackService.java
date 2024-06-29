@@ -2,17 +2,23 @@ package com.misha.booknetwork.FeedBackService;
 
 import com.misha.booknetwork.BookRepository.BookRepository;
 import com.misha.booknetwork.FeedBackRequests.FeedBackRequest;
+import com.misha.booknetwork.FeedBackRequests.FeedBackResponse;
 import com.misha.booknetwork.FeedbackRepository.FeedbackRepository;
 import com.misha.booknetwork.book.Book;
+import com.misha.booknetwork.dto.PageResponse;
 import com.misha.booknetwork.exception.OperationNotPermittedException;
 import com.misha.booknetwork.feedback.FeedBack;
 import com.misha.booknetwork.feedbackMapper.FeedBackMapper;
 import com.misha.booknetwork.user.User;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -35,5 +41,24 @@ private final FeedbackRepository feedbackRepository;
         }
         FeedBack feedBack = feedBackMapper.toFeedback(request);
         return feedbackRepository.save(feedBack).getId();
+    }
+
+    public PageResponse<FeedBackResponse> findAllFeedBacksByBook(Integer bookId, int page, int size, Authentication connectedUser) {
+        Pageable pageable = PageRequest.of(page,size);
+        User user = ((User) connectedUser.getPrincipal());
+        Page<FeedBack> feedbacks = feedbackRepository.findAllByBookId(bookId, pageable);
+        List<FeedBackResponse> feedBackResponses = feedbacks.stream()
+                .map(f -> feedBackMapper.toFeedBackResponse(f, user.getId()))
+                .toList();
+
+            return new PageResponse<>(
+                    feedBackResponses,
+                    feedbacks.getNumber(),
+                    feedbacks.getSize(),
+                    feedbacks.getTotalElements(),
+                    feedbacks.getTotalPages(),
+                    feedbacks.isFirst(),
+                    feedbacks.isLast()
+            );
     }
 }
