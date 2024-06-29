@@ -184,4 +184,9 @@ private final BookMapper bookMapper;
         bookTransactionHistory.setReturned(true);
         return bookTransactionHistoryRepository.save(bookTransactionHistory).getId();
     }
+
+    public Integer approveReturnBorrowedBook(Integer bookId, Authentication connectedUser) {
+
+
+    }
 }
