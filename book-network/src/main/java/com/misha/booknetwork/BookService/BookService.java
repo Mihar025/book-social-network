@@ -197,7 +197,8 @@ private final BookMapper bookMapper;
             throw new OperationNotPermittedException("You cannot borrow or return your own book");
         }
         BookTransactionHistory bookTransactionHistory = bookTransactionHistoryRepository.findByBookIdAndOwnerId(bookId, user.getId())
-                .orElseThrow(() -> new OperationNotPermittedException("You didnt borrow this book"));
-
+                .orElseThrow(() -> new OperationNotPermittedException("The book ia not returned yet!"));
+        bookTransactionHistory.setReturnApproved(true);
+        return bookTransactionHistoryRepository.save(bookTransactionHistory).getId();
     }
 }
