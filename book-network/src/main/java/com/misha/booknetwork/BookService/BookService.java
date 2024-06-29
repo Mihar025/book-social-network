@@ -186,7 +186,18 @@ private final BookMapper bookMapper;
     }
 
     public Integer approveReturnBorrowedBook(Integer bookId, Authentication connectedUser) {
-
+        Book book = bookRepository.findById(bookId).orElseThrow(
+                () -> new EntityNotFoundException("No book with the ID::" + bookId)
+        );
+        if(!book.isArchived() || !book.isArchived()){
+            throw new OperationNotPermittedException("The requested book cannot be shareable!");
+        }
+        User user = ((User) connectedUser.getPrincipal());
+        if(!Objects.equals(book.getOwner().getId(), user.getId())){
+            throw new OperationNotPermittedException("You cannot borrow or return your own book");
+        }
+        BookTransactionHistory bookTransactionHistory = bookTransactionHistoryRepository.findByBookIdAndOwnerId(bookId, user.getId())
+                .orElseThrow(() -> new OperationNotPermittedException("You didnt borrow this book"));
 
     }
 }

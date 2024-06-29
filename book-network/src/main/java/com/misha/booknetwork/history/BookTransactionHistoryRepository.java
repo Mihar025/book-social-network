@@ -44,4 +44,10 @@ public interface BookTransactionHistoryRepository extends JpaRepository<BookTran
         """
     )
     Optional<BookTransactionHistory> findByBookIdAndUserId(Integer bookId, Integer id);
+
+    @Query("""
+
+            """)
+
+    Optional<BookTransactionHistory> findByBookIdAndOwnerId(Integer bookId, Integer id);
 }
