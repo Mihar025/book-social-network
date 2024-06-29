@@ -140,4 +140,15 @@ private final BookMapper bookMapper;
         bookRepository.save(book);
         return bookId;
     }
+
+    public Integer borrowBook(Integer bookId, Authentication connectedUser) {
+        Book book = bookRepository.findById(bookId).orElseThrow(
+                () -> new EntityNotFoundException("No book with the ID::" + bookId)
+        );
+
+        if(!book.isArchived() || !book.isArchived()){
+            throw new OperationNotPermittedException("The requested book cannot be shareable!");
+        }
+
+    }
 }
