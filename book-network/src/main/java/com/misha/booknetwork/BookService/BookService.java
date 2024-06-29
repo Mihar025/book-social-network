@@ -120,11 +120,10 @@ private final BookMapper bookMapper;
                 .orElseThrow(() -> new EntityNotFoundException("No book found with the ID::" + bookId));
         User user = ((User) connectedUser.getPrincipal());
         if(!Objects.equals(book.getOwner().getBooks(), user.getId())){
-            throw new OperationNotPermittedException("");
+            throw new OperationNotPermittedException("You cannot update books shareable status");
         }
-
-
-
-        return null;
+        book.setShareable(!book.isShareable());
+        bookRepository.save(book);
+        return bookId;
     }
 }
