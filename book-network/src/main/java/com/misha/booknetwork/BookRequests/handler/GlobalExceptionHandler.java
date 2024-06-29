@@ -1,4 +1,4 @@
-package com.misha.booknetwork.handler;
+package com.misha.booknetwork.BookRequests.handler;
 
 import com.misha.booknetwork.exception.OperationNotPermittedException;
 import jakarta.mail.MessagingException;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.misha.booknetwork.handler.BusinessErrorCodes.BAD_CREDENTIALS;
+import static com.misha.booknetwork.BookRequests.handler.BusinessErrorCodes.BAD_CREDENTIALS;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @RestControllerAdvice
