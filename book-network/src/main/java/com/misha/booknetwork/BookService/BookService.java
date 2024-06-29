@@ -149,6 +149,14 @@ private final BookMapper bookMapper;
         if(!book.isArchived() || !book.isArchived()){
             throw new OperationNotPermittedException("The requested book cannot be shareable!");
         }
+        User user = ((User) connectedUser.getPrincipal());
+        if(!Objects.equals(book.getOwner().getId(), user.getId())){
+            throw new OperationNotPermittedException("You cannot borrow your own book");
+        }
+        final boolean isAlreadyBorrowed = bookTransactionHistoryRepository.isAlreadyBorrowedByUser(bookId, user.getId());
 
+
+
+        return null;
     }
 }
