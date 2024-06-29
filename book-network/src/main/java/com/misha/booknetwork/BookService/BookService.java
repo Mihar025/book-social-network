@@ -5,6 +5,7 @@ import com.misha.booknetwork.BookRepository.BookRepository;
 import com.misha.booknetwork.BookRequests.BookRequest;
 import com.misha.booknetwork.book.Book;
 import com.misha.booknetwork.dto.*;
+import com.misha.booknetwork.exception.OperationNotPermittedException;
 import com.misha.booknetwork.history.BookTransactionHistory;
 import com.misha.booknetwork.history.BookTransactionHistoryRepository;
 import com.misha.booknetwork.user.User;
@@ -119,10 +120,23 @@ private final BookMapper bookMapper;
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new EntityNotFoundException("No book found with the ID::" + bookId));
         User user = ((User) connectedUser.getPrincipal());
-        if(!Objects.equals(book.getOwner().getBooks(), user.getId())){
+        if(!Objects.equals(book.getOwner().getId(), user.getId())){
             throw new OperationNotPermittedException("You cannot update books shareable status");
         }
         book.setShareable(!book.isShareable());
+        bookRepository.save(book);
+        return bookId;
+    }
+
+    public Integer updateArchivedStatus(Integer bookId, Authentication connectedUser) {
+
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new EntityNotFoundException("No book found with the ID::" + bookId));
+        User user = ((User) connectedUser.getPrincipal());
+        if(!Objects.equals(book.getOwner().getId(), user.getId())){
+            throw new OperationNotPermittedException("You cannot update books archived status");
+        }
+        book.setArchived(!book.isArchived());
         bookRepository.save(book);
         return bookId;
     }

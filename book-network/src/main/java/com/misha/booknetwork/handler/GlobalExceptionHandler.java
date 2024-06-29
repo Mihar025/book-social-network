@@ -1,5 +1,6 @@
 package com.misha.booknetwork.handler;
 
+import com.misha.booknetwork.exception.OperationNotPermittedException;
 import jakarta.mail.MessagingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static com.misha.booknetwork.handler.BusinessErrorCodes.BAD_CREDENTIALS;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -80,7 +82,7 @@ public class GlobalExceptionHandler {
                     errors.add(errorMessage);
                 });
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
+                .status(BAD_REQUEST)
                 .body(
                         ExceptionResponse.builder()
                                 .validatingErrors(errors)
@@ -98,6 +100,18 @@ public class GlobalExceptionHandler {
                 .body(
                         ExceptionResponse.builder()
                                 .businessExceptionDescription("Internal error, contact with provider ")
+                                .error(exception.getMessage())
+                                .build()
+                );
+
+    }
+
+    @ExceptionHandler(OperationNotPermittedException.class)
+    public ResponseEntity<ExceptionResponse> handleException (OperationNotPermittedException exception){
+        return ResponseEntity
+                .status(BAD_REQUEST)
+                .body(
+                        ExceptionResponse.builder()
                                 .error(exception.getMessage())
                                 .build()
                 );
