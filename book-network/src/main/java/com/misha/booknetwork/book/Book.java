@@ -1,7 +1,7 @@
 package com.misha.booknetwork.book;
 
 import com.misha.booknetwork.common.BaseEntity;
-import com.misha.booknetwork.feedback.FeedBack;
+import com.misha.booknetwork.feedback.Feedback;
 import com.misha.booknetwork.history.BookTransactionHistory;
 import com.misha.booknetwork.user.User;
 import jakarta.persistence.*;
@@ -38,18 +38,18 @@ public class Book extends BaseEntity {
     private User owner;
 
     @OneToMany(mappedBy = "book")
-    private List<FeedBack> feedBacks;
+    private List<Feedback> feedbacks;
 
     @OneToMany(mappedBy = "book")
     private List<BookTransactionHistory> histories;
 
     @Transient
     public double getRate(){
-        if(feedBacks == null || feedBacks.isEmpty()){
+        if(feedbacks == null || feedbacks.isEmpty()){
             return 0.0;
         }
-        var rate = this.feedBacks.stream()
-                .mapToDouble(FeedBack::getNote)
+        var rate = this.feedbacks.stream()
+                .mapToDouble(Feedback::getNote)
                 .average()
                 .orElse(0.0);
 

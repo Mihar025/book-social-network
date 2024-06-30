@@ -7,7 +7,7 @@ import com.misha.booknetwork.FeedbackRepository.FeedbackRepository;
 import com.misha.booknetwork.book.Book;
 import com.misha.booknetwork.dto.PageResponse;
 import com.misha.booknetwork.exception.OperationNotPermittedException;
-import com.misha.booknetwork.feedback.FeedBack;
+import com.misha.booknetwork.feedback.Feedback;
 import com.misha.booknetwork.feedbackMapper.FeedBackMapper;
 import com.misha.booknetwork.user.User;
 import jakarta.persistence.EntityNotFoundException;
@@ -39,14 +39,14 @@ private final FeedbackRepository feedbackRepository;
         if(!Objects.equals(book.getOwner().getId(), user.getId())){
             throw new OperationNotPermittedException("You cannot give a feedback to your own book");
         }
-        FeedBack feedBack = feedBackMapper.toFeedback(request);
+        Feedback feedBack = feedBackMapper.toFeedback(request);
         return feedbackRepository.save(feedBack).getId();
     }
 
     public PageResponse<FeedBackResponse> findAllFeedBacksByBook(Integer bookId, int page, int size, Authentication connectedUser) {
         Pageable pageable = PageRequest.of(page,size);
         User user = ((User) connectedUser.getPrincipal());
-        Page<FeedBack> feedbacks = feedbackRepository.findAllByBookId(bookId, pageable);
+        Page<Feedback> feedbacks = feedbackRepository.findAllByBookId(bookId, pageable);
         List<FeedBackResponse> feedBackResponses = feedbacks.stream()
                 .map(f -> feedBackMapper.toFeedBackResponse(f, user.getId()))
                 .toList();
