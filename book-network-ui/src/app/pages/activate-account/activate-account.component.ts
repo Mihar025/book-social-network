@@ -1,19 +1,20 @@
 import { Component } from '@angular/core';
-import {Router} from "@angular/router";
-import {AuthenticationService} from "../../services/services/authentication.service";
-import {CodeInputModule} from "angular-code-input";
+import { Router } from "@angular/router";
+import { AuthenticationService } from "../../services/services/authentication.service";
+import { CodeInputModule } from "angular-code-input";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-activate-account',
   standalone: true,
   imports: [
-    CodeInputModule
+    CodeInputModule,
+    CommonModule
   ],
   templateUrl: './activate-account.component.html',
   styleUrl: './activate-account.component.scss'
 })
 export class ActivateAccountComponent {
-
   message = '';
   isOkay = true;
   submitted = false;
@@ -22,7 +23,6 @@ export class ActivateAccountComponent {
     private router: Router,
     private authService: AuthenticationService
   ) {}
-
 
   onCodeCompleted(token: string) {
     this.confirmationAccount(token);
@@ -37,13 +37,20 @@ export class ActivateAccountComponent {
       token
     }).subscribe({
       next: () => {
-        this.message = 'Your account has been successfully activated.\nNow you can proceed to login'
+        this.isOkay = true;
+        this.message = 'Your account has been successfully activated. Now you can proceed to login';
         this.submitted = true;
       },
       error: () => {
-        this.message = 'Token has been expired or invalid'
+        this.isOkay = false;
+        this.message = 'Token has been expired or invalid';
         this.submitted = true;
       }
     });
+  }
+
+  tryAgain() {
+    this.submitted = false;
+    this.message = '';
   }
 }
