@@ -27,4 +27,8 @@ export class ActivateAccountComponent {
   onCodeCompleted($event: string) {
 
   }
+
+  redirectToLogin() {
+    this.router.navigate(['login']);
+  }
 }
