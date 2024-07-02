@@ -37,8 +37,13 @@ export class ActivateAccountComponent {
       token
     }).subscribe({
       next: () => {
-        this.message = 'Your account has been successfully activated.\n'
+        this.message = 'Your account has been successfully activated.\nNow you can proceed to login'
+        this.submitted = true;
+      },
+      error: () => {
+        this.message = 'Token has been expired or invalid'
+        this.submitted = true;
       }
-    })
+    });
   }
 }
