@@ -1,17 +1,35 @@
-import { Component } from '@angular/core';
-import {RouterLink} from "@angular/router";
+import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
-  standalone: true,
-  imports: [
-    RouterLink
-  ],
   templateUrl: './menu.component.html',
-  styleUrl: './menu.component.scss'
+  styleUrls: ['./menu.component.scss'],
+  standalone: true,
+  imports: [CommonModule, RouterLink, RouterLinkActive]
 })
-export class MenuComponent {
+export class MenuComponent implements OnInit {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.initializeMenu();
+    }
+  }
+
+  private initializeMenu(): void {
+    const linkColor = document.querySelectorAll('.nav-link');
+    linkColor.forEach(link => {
+      if (window.location.href.endsWith(link.getAttribute('href') || '')) {
+        link.classList.add('active');
+      }
+      link.addEventListener('click', () => {
+        linkColor.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
+  }
   logout() {
 
   }
