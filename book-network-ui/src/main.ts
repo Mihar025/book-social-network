@@ -1,6 +1,18 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AppComponent } from './app/app.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+import { HttpTokenInterceptor } from './app/services/interceptor/http-token.interceptor';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideHttpClient(),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpTokenInterceptor,
+      multi: true
+    }
+  ]
+})
+  .catch(err => console.error(err));
