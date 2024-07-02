@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {BookService} from "../../../../services/services/book.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-book-list',
@@ -7,6 +9,13 @@ import { Component } from '@angular/core';
   templateUrl: './book-list.component.html',
   styleUrl: './book-list.component.scss'
 })
-export class BookListComponent {
+export class BookListComponent implements OnInit{
+
+    constructor(
+      private bookService: BookService,
+      private router: Router
+    ) {
+    }
+
 
 }
