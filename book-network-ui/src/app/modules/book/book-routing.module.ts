@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {MainComponent} from "./pages/main/main.component";
 import {BookListComponent} from "./pages/book-list/book-list.component";
 
+
 const routes: Routes = [
   {
     path: '',
@@ -15,7 +16,6 @@ const routes: Routes = [
     ]
   }
 ];
-
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
