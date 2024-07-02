@@ -24,11 +24,21 @@ export class ActivateAccountComponent {
   ) {}
 
 
-  onCodeCompleted($event: string) {
-
+  onCodeCompleted(token: string) {
+    this.confirmationAccount(token);
   }
 
   redirectToLogin() {
     this.router.navigate(['login']);
+  }
+
+  private confirmationAccount(token: string) {
+    this.authService.confirm({
+      token
+    }).subscribe({
+      next: () => {
+        this.message = 'Your account has been successfully activated.\n'
+      }
+    })
   }
 }
