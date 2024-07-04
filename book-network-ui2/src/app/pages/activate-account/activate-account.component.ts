@@ -6,13 +6,14 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-activate-account',
-  standalone: true,
+
   imports: [
     CodeInputModule,
     CommonModule
   ],
   templateUrl: './activate-account.component.html',
-  styleUrl: './activate-account.component.scss'
+  standalone: true,
+  styleUrls: ['./activate-account.component.scss']  // Изменено здесь
 })
 export class ActivateAccountComponent {
   message = '';
@@ -54,3 +55,4 @@ export class ActivateAccountComponent {
     this.message = '';
   }
 }
+
