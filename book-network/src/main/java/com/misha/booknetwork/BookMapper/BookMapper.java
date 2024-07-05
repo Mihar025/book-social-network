@@ -40,16 +40,17 @@ public class BookMapper {
 
     }
 
-    public BorrowedBookResponse toBorrowedBookResponse(BookTransactionHistory bookTransactionHistory) {
+    public BorrowedBookResponse toBorrowedBookResponse(BookTransactionHistory history) {
         return BorrowedBookResponse.builder()
-                .id(bookTransactionHistory.getBook().getId())
-                .title(bookTransactionHistory.getBook().getTitle())
-                .authorName(bookTransactionHistory.getBook().getAuthorName())
-                .isbn(bookTransactionHistory.getBook().getIsbn())
-                .rate(bookTransactionHistory.getBook().getRate())
-                .returned(bookTransactionHistory.isReturned())
-                .returnApprove(bookTransactionHistory.isReturnApproved())
+                .id(history.getBook().getId())
+                .title(history.getBook().getTitle())
+                .authorName(history.getBook().getAuthorName())
+                .isbn(history.getBook().getIsbn())
+                .rate(history.getBook().getRate())
+                .returned(history.isReturned())
+                .returnApproved(history.isReturnApproved())
                 .build();
     }
+
 
 }

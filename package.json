@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@fortawesome/angular-fontawesome": "^0.15.0",
+    "ng-openapi-gen": "^0.51.0"
+  }
+}
