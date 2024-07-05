@@ -7,23 +7,20 @@ services:
       POSTGRES_PASSWORD: misha
       PGDATA: /var/lib/postgresql/data
       POSTGRES_DB: book_social_network
-        - postgres:/data/
-    volumes: postgres
+    volumes:
+      - postgres:/var/lib/postgresql/data
     ports:
-      - 5433:5432
+      - "5433:5432"
     networks:
       - spring-demo
     restart: unless-stopped
-
 
   maildev:
     container_name: mail-dev-bsn
     image: maildev/maildev
     ports:
-      - 1080:1080
-      - 1025:1025
-
-
+      - "1080:1080"
+      - "1025:1025"
 
 networks:
   spring-demo:
